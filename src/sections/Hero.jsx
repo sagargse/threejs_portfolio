@@ -12,7 +12,6 @@ import Cube from "../components/Cube.jsx";
 import Rings from "../components/Rings.jsx";
 import HeroCamera from "../components/HeroCamera.jsx";
 import Button from "../components/Button.jsx";
-import Chair from "../components/Chair.jsx";
 
 const Hero = () =>{
 
@@ -69,7 +68,7 @@ const Hero = () =>{
                 {/*<Leva/>*/}
                 <Canvas className="w-full h-full" >
                     <Suspense fallback = {<CanvasLoader />}>
-                    <PerspectiveCamera makeDefault position={[0,0,27]}/>
+                    <PerspectiveCamera makeDefault position={[0,0,270]}/>
                         <HeroCamera isMobile={isMobile}>
                             <HackerRoom
                                 scale={sizes.deskScale}
@@ -83,15 +82,12 @@ const Hero = () =>{
                             <Cube position={sizes.cubePosition}/>
                             <Rings position={sizes.ringPosition}/>
                         </group>
-                        {/*<group>*/}
-                        {/*    <Chair position={[0,-12,8]} scale={12} rotation = {[0, 3.2, 0.0]}/>*/}
-                        {/*</group>*/}
                         <ambientLight intensity={1} />
                         <directionalLight position={[10,10,10]} intensity={0.5} />
                     </Suspense>
                 </Canvas>
             </div>
-            <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
+            <div className="absolute bottom-0 left-0 right-0 w-full z-10 c-space">
                 <a href="#contact" className="w-fit">
                     <Button name="Let's Work Together" isBeam
                             containerClass="sm:w-fit w-full sm:min-w-96"></Button>
