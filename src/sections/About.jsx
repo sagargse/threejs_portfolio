@@ -1,6 +1,10 @@
 import Globe from "react-globe.gl";
 import Button from "../components/Button.jsx";
 import {useState} from "react";
+import ReactLogo from "../components/ReactLogo.jsx";
+import {calculateSizes} from "../constants/index.js";
+import {useMediaQuery} from "react-responsive";
+import {Canvas} from "@react-three/fiber";
 
 const About = ()=>{
         const [hasCopied, setHasCopied] = useState(false);
@@ -11,6 +15,10 @@ const About = ()=>{
             setHasCopied(false);
     },2000)
     }
+    const isSmall = useMediaQuery({maxWidth: 440});
+    const isMobile = useMediaQuery({maxWidth: 768});
+    const isTablet = useMediaQuery({minWidth: 768, maxWidth: 1024});
+    const sizes = calculateSizes(isSmall, isMobile, isTablet);
     return (
         <section className="c-space my-20">
             <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
@@ -25,7 +33,12 @@ const About = ()=>{
                 </div>
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
-                        <img src = "/assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain"/>
+                        {/*<img src = "/assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain"/>*/}
+                        <Canvas>
+                            <group>
+                        <ReactLogo scale={-0.2} position={[0,0,0]}/>
+                            </group>
+                        </Canvas>
                         <div>
                             <p className="grid-headtext">Tech Stack</p>
                             <p className="grid-subtext">I Specialized in Javascript, React, Oracle.</p>
@@ -56,7 +69,7 @@ const About = ()=>{
                         <div>
                             <p className="grid-headtext">Open to work from anywhere</p>
                             <p className="grid-subtext">I am based in Mumbai, India, with remote work available.</p>
-                            <Button name="Contact Me" isBeam containerClass="sm:w-fit w-full mt-10"/>
+                            <Button name="Contact Me" isBeam containerClass="w-full mt-10"/>
                         </div>
                     </div>
                 </div>
