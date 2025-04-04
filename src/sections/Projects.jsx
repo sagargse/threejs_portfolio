@@ -43,7 +43,7 @@ const Projects = () => {
                             ))}
                         </div>
                         <a href={currentProject.href} target="_blank" rel="noreferrer" className="flex items-center gap-2 cursor-pointer text-white-600">
-                            <p>Check Live site</p>
+                            <p>View Code</p>
                             <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3"/>
                         </a>
                     </div>

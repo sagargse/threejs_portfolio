@@ -63,7 +63,7 @@ export const myProjects = [
         subdesc:
             'Artzilla offers a collection of ready-to-use, customizable UI components built with modern design principles. It helps developers quickly build consistent, responsive, and visually appealing user interfaces without reinventing the wheel. Designed for flexibility, Artzilla supports seamless integration with various frontend frameworks.\n' +
             '\n',
-        href: 'https://artzilla-ui.netlify.app/',
+        href: 'https://github.com/sagargse/artzilla',
         texture: '/textures/project/project1.mov',
         logo: '/assets/project-logo1.png',
         logoStyle: {
@@ -95,7 +95,7 @@ export const myProjects = [
         desc: 'Kidszilla is a dynamic e-commerce platform designed to provide a seamless shopping experience for kids\' products. It offers an intuitive interface for browsing, purchasing, and managing orders with ease.',
         subdesc:
             'Built with React.js, Kidszilla ensures fast performance, responsive design, and a smooth user experience. It features secure payment integration, real-time inventory updates, and personalized recommendations to enhance the shopping journey.',
-        href: 'https://kidszilla.netlify.app/',
+        href: 'https://github.com/sagargse/ecommerce-kidszilla',
         texture: '/textures/project/project2.mov',
         logo: '/assets/project-logo4.png',
         logoStyle: {
@@ -148,14 +148,5 @@ export const workExperiences = [
         title: "During my internship, I worked on data annotation, labeling datasets to improve AI/ML model accuracy. I ensured high-quality annotations for training data, helping refine machine learning algorithms.",
         icon: '/assets/edoofa.jpeg',
         animation: 'clapping',
-    },
-    // {
-    //     id: 3,
-    //     name: 'Notion',
-    //     pos: 'Junior Web Developer',
-    //     duration: '2019 - 2020',
-    //     title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-    //     icon: '/assets/notion.svg',
-    //     animation: 'salute',
-    // },
+    }
 ];
