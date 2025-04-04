@@ -63,7 +63,7 @@ export const myProjects = [
         subdesc:
             'Artzilla offers a collection of ready-to-use, customizable UI components built with modern design principles. It helps developers quickly build consistent, responsive, and visually appealing user interfaces without reinventing the wheel. Designed for flexibility, Artzilla supports seamless integration with various frontend frameworks.\n' +
             '\n',
-        href: 'https://www.youtube.com/watch?v=zfAb95tJvZQ',
+        href: 'https://artzilla-ui.netlify.app/',
         texture: '/textures/project/project1.mov',
         logo: '/assets/project-logo1.png',
         logoStyle: {
@@ -75,27 +75,27 @@ export const myProjects = [
         tags: [
             {
                 id: 1,
-                name: 'React.js',
-                path: '/assets/react.svg',
+                name: 'Javascript',
+                path: '/assets/js.png',
             },
             {
                 id: 2,
-                name: 'TailwindCSS',
-                path: 'assets/tailwindcss.png',
+                name: 'HTML-5',
+                path: 'assets/html.png',
             },
             {
                 id: 3,
-                name: 'TypeScript',
-                path: '/assets/typescript.png',
+                name: 'CSS',
+                path: '/assets/css.png',
             }
         ],
     },
     {
         title: 'Kidszilla - E-Commerce Platform',
-        desc: 'Horizon is a comprehensive online banking platform that offers users a centralized finance management dashboard. It allows users to connect multiple bank accounts, monitor real-time transactions, and seamlessly transfer money to other users.',
+        desc: 'Kidszilla is a dynamic e-commerce platform designed to provide a seamless shopping experience for kids\' products. It offers an intuitive interface for browsing, purchasing, and managing orders with ease.',
         subdesc:
-            'Built with Next.js 14 Appwrite, Dwolla and Plaid, Horizon ensures a smooth and secure banking experience, tailored to meet the needs of modern consumers.',
-        href: 'https://www.youtube.com/watch?v=PuOVqP_cjkE',
+            'Built with React.js, Kidszilla ensures fast performance, responsive design, and a smooth user experience. It features secure payment integration, real-time inventory updates, and personalized recommendations to enhance the shopping journey.',
+        href: 'https://kidszilla.netlify.app/',
         texture: '/textures/project/project2.mov',
         logo: '/assets/project-logo4.png',
         logoStyle: {
@@ -112,13 +112,8 @@ export const myProjects = [
             },
             {
                 id: 2,
-                name: 'TailwindCSS',
-                path: 'assets/tailwindcss.png',
-            },
-            {
-                id: 3,
-                name: 'TypeScript',
-                path: '/assets/typescript.png',
+                name: 'Javascript',
+                path: 'assets/js.png',
             }
         ],
     }
@@ -138,29 +133,29 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
 export const workExperiences = [
     {
         id: 1,
-        name: 'Framer',
-        pos: 'Lead Web Developer',
-        duration: '2022 - Present',
-        title: "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-        icon: '/assets/framer.svg',
+        name: 'CRISIL - An S&P Global Company',
+        pos: 'Senior Associate (SDE-1)',
+        duration: 'Jan. 2023 - Present',
+        title: "At CRISIL, I worked as a Software Engineer, focusing on Oracle PL/SQL, JavaScript, React, Java, and ETL development. I built data flows and implemented RBI-issued triggers. I developed frontend features using React and worked on backend services with Java. My role also involved database management and optimizing ETL pipelines for seamless data processing.",
+        icon: '/assets/crisil.svg',
         animation: 'victory',
     },
     {
         id: 2,
-        name: 'Figma',
-        pos: 'Web Developer',
-        duration: '2020 - 2022',
-        title: "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
-        icon: '/assets/figma.svg',
+        name: 'Edoofa',
+        pos: 'Data Annotation Internship',
+        duration: 'Feb. 2020 - Mar. 2020',
+        title: "During my internship, I worked on data annotation, labeling datasets to improve AI/ML model accuracy. I ensured high-quality annotations for training data, helping refine machine learning algorithms.",
+        icon: '/assets/edoofa.jpeg',
         animation: 'clapping',
     },
-    {
-        id: 3,
-        name: 'Notion',
-        pos: 'Junior Web Developer',
-        duration: '2019 - 2020',
-        title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-        icon: '/assets/notion.svg',
-        animation: 'salute',
-    },
+    // {
+    //     id: 3,
+    //     name: 'Notion',
+    //     pos: 'Junior Web Developer',
+    //     duration: '2019 - 2020',
+    //     title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
+    //     icon: '/assets/notion.svg',
+    //     animation: 'salute',
+    // },
 ];

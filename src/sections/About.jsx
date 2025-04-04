@@ -1,7 +1,6 @@
 import Globe from "react-globe.gl";
 import Button from "../components/Button.jsx";
 import {useState} from "react";
-import ReactLogo from "../components/ReactLogo.jsx";
 import {calculateSizes} from "../constants/index.js";
 import {useMediaQuery} from "react-responsive";
 import {Canvas} from "@react-three/fiber";
@@ -27,30 +26,29 @@ const About = ()=>{
                         <img src = "/assets/grid1.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain"/>
                         <div>
                             <p className="grid-headtext">Hi, I'm Sagar Raj.</p>
-                            <p className="grid-subtext">Full Stack Developer, AI Enthusiast, and a Tech Enthusiast.</p>
+                            <p className="grid-subtext">I specialize in building scalable applications, designing efficient database solutions, and leveraging AI to create impactful tech solutions.</p>
                         </div>
                     </div>
                 </div>
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
-                        {/*<img src = "/assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain"/>*/}
-                        <Canvas>
-                            <group>
-                        <ReactLogo scale={-0.2} position={[0,0,0]}/>
-                            </group>
-                        </Canvas>
+                        <div className="w-full sm:h-[276px] h-fit flex justify-center items-center flex-wrap gap-10 p-5 rounded-xl bg-black/30 backdrop-blur-md shadow-2xl">
+                            {['js','react','nodejs','java','spring','python','oracle'].map((tech, index) => (
+                                <img key={index} src={`/assets/${tech}.png`} alt={tech.alt} className="w-14 h-14 object-contain rounded-2xl" />
+                            ))}
+                        </div>
                         <div>
                             <p className="grid-headtext">Tech Stack</p>
-                            <p className="grid-subtext">I Specialized in Javascript, React, Oracle.</p>
+                            <p className="grid-subtext">I specialize in JavaScript, React, Oracle, Python, and PL/SQL and ETL Development. with hands-on experience in Node.js, Java, Spring Boot</p>
                         </div>
                     </div>
                 </div>
                 <div className="col-span-1 xl:row-span-4">
                     <div className="grid-container">
-                        <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
+                        <div className="rounded-3xl w-full sm:h-[400px] h-fit flex justify-center items-center object-contain">
                             <Globe
-                                height={326}
-                                width={326}
+                                height={400}
+                                width={400}
                                 backgroundColor="rgba(0,0,0,0)"
                                 backgroundImageOpacity={0.5}
                                 showAtmosphere
@@ -68,17 +66,17 @@ const About = ()=>{
                         </div>
                         <div>
                             <p className="grid-headtext">Open to work from anywhere</p>
-                            <p className="grid-subtext">I am based in Mumbai, India, with remote work available.</p>
+                            <p className="grid-subtext">Based in Mumbai, India, I am open to remote, hybrid, and on-site opportunities worldwide.</p>
                             <Button name="Contact Me" isBeam containerClass="w-full mt-10"/>
                         </div>
                     </div>
                 </div>
                 <div className="xl:col-span-2 xl:row-span-3">
-                    <div className="grid-container">
-                        <img src = "/assets/grid3.png" alt="grid-3" className="w-full sm:h-[266px] h-fit object-contain"/>
+                    <div className="grid-container h-fit">
+                        <img src = "/assets/grid3.png" alt="grid-3" className="w-full sm:h-[326px] h-fit object-contain"/>
                         <div>
                             <p className="grid-headtext">My passion for coding.</p>
-                            <p className="grid-subtext">I am a passionate coder who thrives on solving complex problems and creating innovative solutions.</p>
+                            <p className="grid-subtext">Coding isn't just my profession, it's my passion. I love solving complex problems, optimizing workflows, and architecting seamless user experiences through innovative solutions.</p>
                         </div>
                     </div>
                 </div>
