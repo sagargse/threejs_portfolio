@@ -33,13 +33,13 @@ const About = ()=>{
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
                         <div className="w-full sm:h-[276px] h-fit flex justify-center items-center flex-wrap gap-10 p-5 rounded-xl bg-black/30 backdrop-blur-md shadow-2xl">
-                            {['js','react','nodejs','java','spring','python','oracle'].map((tech, index) => (
+                            {['js','react','nodejs','python','oracle'].map((tech, index) => (
                                 <img key={index} src={`/assets/${tech}.png`} alt={tech.alt} className="w-14 h-14 object-contain rounded-2xl" />
                             ))}
                         </div>
                         <div>
                             <p className="grid-headtext">Tech Stack</p>
-                            <p className="grid-subtext">I specialize in JavaScript, React, Oracle, Python, and PL/SQL and ETL Development. with hands-on experience in Node.js, Java, Spring Boot</p>
+                            <p className="grid-subtext">I specialize in JavaScript, React, Oracle, Python, and PL/SQL and ETL Development with hands-on experience in Node.js.</p>
                         </div>
                     </div>
                 </div>
