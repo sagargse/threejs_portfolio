@@ -1,14 +1,11 @@
-// File: api/callback.js
+import axios from 'axios';
+import qs from 'qs';
 
-import axios from 'axios'; // To make HTTP requests
-import qs from 'qs';     // To format data for the request
-
-// These should be set in your Vercel Environment Variables
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
 
-// This is the main function Vercel runs when Spotify redirects the user back here
+//Main function Vercel runs when Spotify redirects the user back here
 export default async function handler(req, res) {
     // Extract the authorization code and potential error from the query parameters
     const code = req.query.code || null;
@@ -22,16 +19,15 @@ export default async function handler(req, res) {
         return;
     }
 
-    // Handle case where no code was received (shouldn't normally happen if no error)
+    // Handle case where no code was received
     if (!code) {
         res.status(400).send('<html><body><h1>Error</h1><p>No authorization code received from Spotify.</p></body></html>');
         return;
     }
 
-    // --- Exchange the authorization code for tokens ---
+    // Exchange the authorization code for tokens
 
-    // Prepare the authorization header (Basic Authentication)
-    // This encodes "your_client_id:your_client_secret" in Base64
+    // Prepare the authorization header
     const authHeader = 'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64');
 
     // The URL for Spotify's token endpoint
@@ -39,18 +35,16 @@ export default async function handler(req, res) {
 
     // The data to send in the POST request body
     const data = qs.stringify({
-        grant_type: 'authorization_code', // Specify we're using the authorization code grant
-        code: code,                       // The code we just received
-        redirect_uri: REDIRECT_URI        // Must match the URI used in the initial /login request
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: REDIRECT_URI
     });
 
     try {
         // Make the POST request to Spotify to get the tokens
         const response = await axios.post(tokenUrl, data, {
             headers: {
-                // Required header for this type of request
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // The Basic Authentication header
                 'Authorization': authHeader
             }
         });
@@ -58,18 +52,13 @@ export default async function handler(req, res) {
         // Extract the tokens and expiry time from Spotify's response
         const { access_token, refresh_token, expires_in } = response.data;
 
-        // --- IMPORTANT: Display the Refresh Token ---
-        // This is the crucial part for the one-time setup.
-        // We log it to Vercel's serverless function logs AND display it on the page.
+        //Display the Refresh Token
         console.log('--- SPOTIFY AUTH SUCCESS ---');
         console.log('Access Token:', access_token);
         console.log('Expires In (seconds):', expires_in);
-        console.log('Obtained Refresh Token:', refresh_token); // Check Vercel logs for this!
+        console.log('Obtained Refresh Token:', refresh_token);
         console.log('-----------------------------');
 
-
-        // Send an HTML response to the user's browser showing the refresh token
-        // In a production app, you'd normally redirect the user elsewhere and store the token securely.
         res.status(200).send(`
             <html>
             <head><title>Spotify Auth Success</title></head>

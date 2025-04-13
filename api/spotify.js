@@ -1,9 +1,7 @@
-// File: api/spotify.js
-
 import axios from 'axios';
 import qs from 'qs';
 
-// --- Spotify API Configuration ---
+//Spotify API Configuration
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
@@ -18,12 +16,7 @@ const TOP_TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks?limit=10&t
 const PAUSE_PLAYBACK_ENDPOINT = 'https://api.spotify.com/v1/me/player/pause';
 const START_PLAYBACK_ENDPOINT = 'https://api.spotify.com/v1/me/player/play';
 
-// --- Helper Function to Get Access Token ---
-/**
- * Uses the refresh token to get a new access token from Spotify.
- * @returns {Promise<string>} The access token.
- * @throws {Error} If fetching the access token fails.
- */
+//Helper Function to Get Access Token
 const getAccessToken = async () => {
     try {
         const response = await axios.post(
@@ -42,55 +35,47 @@ const getAccessToken = async () => {
         return response.data.access_token;
     } catch (error) {
         console.error('Error getting access token:', error.response ? error.response.data : error.message);
-        // Rethrow the error to be caught by the main handler
         throw new Error('Failed to get access token from Spotify.');
     }
 };
 
-// --- Helper Function to Format Track Data ---
+//Helper Function to Format Track Data
 const formatTrack = (item) => {
-    if (!item || !item.name) return null; // Handle cases where track info might be missing
+    if (!item || !item.name) return null;
     return {
         name: item.name,
         artist: item.artists.map(artist => artist.name).join(', '),
         album: item.album.name,
-        album_art_url: item.album.images?.[0]?.url, // Get the first (usually largest) album art
+        album_art_url: item.album.images?.[0]?.url,
         spotify_url: item.external_urls?.spotify,
-        uri: item.uri, // Important for playback control
+        uri: item.uri, //  For playback control
     };
 };
 
 
-// --- Main Vercel Serverless Function Handler ---
+// Main Vercel Serverless Function Handler
 export default async function handler(req, res) {
-    // Set CORS headers to allow requests from your frontend domain
-    // Replace 'https://buildwithsagar.vercel.app' with your actual frontend URL if different
-    // Or use '*' for testing, but be more specific in production
     res.setHeader('Access-Control-Allow-Origin', 'https://buildwithsagar.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET'); // Only GET needed for this endpoint design
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    // Handle OPTIONS request for CORS preflight
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
-    // Ensure it's a GET request otherwise
     if (req.method !== 'GET') {
         res.setHeader('Allow', ['GET']);
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
 
     try {
-        // 1. Get a fresh access token for this request
         const accessToken = await getAccessToken();
 
-        // Prepare headers for Spotify API calls
         const spotifyApiHeaders = {
             'Authorization': `Bearer ${accessToken}`
         };
 
-        // 2. Check for Actions (Pause/Play)
+        // Check for Actions (Pause/Play)
         const action = req.query.action;
         const trackUri = req.query.track_uri; // Only relevant if action=play
 
@@ -116,7 +101,7 @@ export default async function handler(req, res) {
         if (action === 'play' && trackUri) {
             try {
                 await axios.put(START_PLAYBACK_ENDPOINT,
-                    { uris: [trackUri] }, // Play the specific track URI
+                    { uris: [trackUri] },
                     { headers: spotifyApiHeaders }
                 );
                 return res.status(200).json({ message: `Attempting to play track: ${trackUri}` });
@@ -132,17 +117,15 @@ export default async function handler(req, res) {
             }
         }
 
-        // 3. Default Action: Get Now Playing and Top Tracks
-        // We run these requests in parallel for speed
+        //Get Now Playing and Top Tracks
         const [nowPlayingResponse, topTracksResponse] = await Promise.allSettled([
             axios.get(NOW_PLAYING_ENDPOINT, { headers: spotifyApiHeaders }),
             axios.get(TOP_TRACKS_ENDPOINT, { headers: spotifyApiHeaders })
         ]);
 
-        // Process Now Playing data
+        // Processes now Playing data
         let nowPlayingData = null;
         if (nowPlayingResponse.status === 'fulfilled' && nowPlayingResponse.value.status === 200 && nowPlayingResponse.value.data && nowPlayingResponse.value.data.item) {
-            // Check if currently playing a track (vs. podcast, etc.)
             if (nowPlayingResponse.value.data.currently_playing_type === 'track') {
                 nowPlayingData = {
                     is_playing: nowPlayingResponse.value.data.is_playing,
@@ -158,12 +141,11 @@ export default async function handler(req, res) {
                 }
             }
         } else if (nowPlayingResponse.status === 'fulfilled' && nowPlayingResponse.value.status === 204) {
-            // 204 No Content means nothing is playing
+
             nowPlayingData = { is_playing: false, message: "Nothing is currently playing." };
         }
         else if (nowPlayingResponse.status === 'rejected') {
             console.error("Error fetching Now Playing:", nowPlayingResponse.reason.response ? nowPlayingResponse.reason.response.data : nowPlayingResponse.reason.message);
-            // Don't fail the whole request, just indicate now_playing couldn't be fetched
             nowPlayingData = { error: "Could not fetch currently playing status." }
         }
 
@@ -174,12 +156,11 @@ export default async function handler(req, res) {
             topTracksData = topTracksResponse.value.data.items.map(formatTrack).filter(track => track !== null); // Format and remove nulls
         } else if (topTracksResponse.status === 'rejected') {
             console.error("Error fetching Top Tracks:", topTracksResponse.reason.response ? topTracksResponse.reason.response.data : topTracksResponse.reason.message);
-            // Indicate top_tracks couldn't be fetched
             topTracksData = { error: "Could not fetch top tracks." }
         }
 
 
-        // 4. Construct the final JSON response
+        // Construct the final JSON response
         const responseJson = {
             now_playing: nowPlayingData,
             top_tracks: topTracksData,
@@ -192,13 +173,8 @@ export default async function handler(req, res) {
 
         // Send the successful response
         res.setHeader('Content-Type', 'application/json');
-        // File: api/spotify.js
-// ... inside the main handler function, near the end ...
 
         try {
-            // ... (all your existing logic to fetch data and build responseJson) ...
-
-            // 4. Construct the final JSON response (your existing code)
             const responseJson = {
                 now_playing: nowPlayingData,
                 top_tracks: topTracksData,
@@ -208,14 +184,9 @@ export default async function handler(req, res) {
                 }
             };
 
-            // --- START MODIFICATION ---
-
-            // Manually stringify the JSON with pretty-printing (2 spaces for indentation)
             const prettyJsonString = JSON.stringify(responseJson, null, 2);
 
-            // Set headers manually
             res.setHeader('Content-Type', 'application/json');
-            // Optional: Prevent caching of this dynamic endpoint
             res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
             res.setHeader('Pragma', 'no-cache');
             res.setHeader('Expires', '0');
@@ -223,12 +194,8 @@ export default async function handler(req, res) {
             // Send the formatted string as the response body
             return res.status(200).send(prettyJsonString);
 
-            // --- END MODIFICATION ---
-
         } catch (error) {
-            // ... (your existing error handling) ...
             console.error('Unhandled error in /api/spotify handler:', error);
-            // Manually stringify error response too for consistency? Optional.
             const errorJsonString = JSON.stringify({ message: 'An internal server error occurred.', error: error.message }, null, 2);
             res.setHeader('Content-Type', 'application/json');
             return res.status(500).send(errorJsonString);
@@ -237,7 +204,6 @@ export default async function handler(req, res) {
     } catch (error) {
         // Catch errors from getAccessToken or other unexpected issues
         console.error('Unhandled error in /api/spotify handler:', error);
-        // Avoid leaking sensitive details in production
         return res.status(500).json({ message: 'An internal server error occurred.', error: error.message });
     }
 }

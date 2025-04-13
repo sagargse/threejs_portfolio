@@ -1,4 +1,3 @@
-// src/components/SpotifyDisplay.jsx
 import { useState, useEffect } from 'react';
 
 function SpotifyDisplay() {
@@ -30,26 +29,25 @@ function SpotifyDisplay() {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []); // Empty dependency array means this runs once on mount
+    }, []);
 
-    // Basic styling for the preformatted text
     const preStyle = {
-        backgroundColor: 'rgba(20, 20, 20, 0.8)', // Darker background, slightly transparent
+        backgroundColor: 'rgba(20, 20, 20, 0.8)',
         border: '1px solid #444',
-        color: '#e0e0e0', // Light text color
+        color: '#e0e0e0',
         padding: '15px',
-        overflowX: 'auto', // Handle long lines horizontally
-        whiteSpace: 'pre-wrap', // Wrap long lines
-        wordWrap: 'break-word', // Ensure words break correctly
-        maxHeight: '400px', // Limit height and allow vertical scroll
+        overflowX: 'auto',
+        whiteSpace: 'pre-wrap',
+        wordWrap: 'break-word',
+        maxHeight: '400px',
         overflowY: 'auto',
-        fontSize: '0.85rem', // Slightly smaller font size
+        fontSize: '0.85rem',
         borderRadius: '8px',
-        marginTop: '20px', // Add some space above
+        marginTop: '20px',
     };
 
     return (
-        <div className="spotify-display-container text-white-500"> {/* Use existing text color class */}
+        <div className="spotify-display-container text-white-500">
             <h3 className="text-xl font-semibold mb-3">Live Spotify Data</h3>
             {loading && <p>Loading Spotify data...</p>}
             {error && <p style={{ color: '#ff6b6b' }}>Error loading data: {error}</p>}
