@@ -4,6 +4,7 @@ import {Canvas} from "@react-three/fiber";
 import CanvasLoader from "../components/CanvasLoader.jsx";
 import DemoComputer from "../components/DemoComputer.jsx";
 import {Center, OrbitControls} from "@react-three/drei";
+import spotifyDisplay from "../components/SpotifyDisplay.jsx";
 
 const projectCount = myProjects.length;
 const Projects = () => {

@@ -192,7 +192,47 @@ export default async function handler(req, res) {
 
         // Send the successful response
         res.setHeader('Content-Type', 'application/json');
-        return res.status(200).json(responseJson);
+        // File: api/spotify.js
+// ... inside the main handler function, near the end ...
+
+        try {
+            // ... (all your existing logic to fetch data and build responseJson) ...
+
+            // 4. Construct the final JSON response (your existing code)
+            const responseJson = {
+                now_playing: nowPlayingData,
+                top_tracks: topTracksData,
+                controls: {
+                    stop_playback_url: `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}/api/spotify?action=stop`,
+                    play_track_base_url: `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}/api/spotify?action=play&track_uri=`
+                }
+            };
+
+            // --- START MODIFICATION ---
+
+            // Manually stringify the JSON with pretty-printing (2 spaces for indentation)
+            const prettyJsonString = JSON.stringify(responseJson, null, 2);
+
+            // Set headers manually
+            res.setHeader('Content-Type', 'application/json');
+            // Optional: Prevent caching of this dynamic endpoint
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
+
+            // Send the formatted string as the response body
+            return res.status(200).send(prettyJsonString);
+
+            // --- END MODIFICATION ---
+
+        } catch (error) {
+            // ... (your existing error handling) ...
+            console.error('Unhandled error in /api/spotify handler:', error);
+            // Manually stringify error response too for consistency? Optional.
+            const errorJsonString = JSON.stringify({ message: 'An internal server error occurred.', error: error.message }, null, 2);
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(500).send(errorJsonString);
+        }
 
     } catch (error) {
         // Catch errors from getAccessToken or other unexpected issues

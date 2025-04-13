@@ -116,6 +116,27 @@ export const myProjects = [
                 path: 'assets/js.png',
             }
         ],
+    },
+    {
+        title: "Spotify Integration",
+        desc: "Real-time Spotify data display, featuring my 'Now Playing' song and Top 10 Tracks fetched via the Spotify Web API.",
+        subdesc: "A Node.js serverless function on Vercel manages Spotify OAuth 2.0 authentication and serves the data to the React frontend. (Playback control is Premium-only).",
+        href: 'https://buildwithsagar.vercel.app/api/spotify',
+        spotlight: "/assets/spotlight5.png",
+        logo: '/assets/project-logo5.png',
+        logoStyle: {
+            backgroundColor: '#0E1F38',
+            border: '0.2px solid #0E2D58',
+            boxShadow: '0px 0px 60px 0px #2F67B64D',
+        },
+        texture: '/textures/project/project2.mov',
+        type: 'spotify',
+        tags: [
+            { name: "Node.js", path: "/assets/nodejs.png" },
+            { name: "React", path: "/assets/react.svg" },
+            { name: "API", path: "/assets/api.png" },
+            { name: "Spotify API", path: "/assets/spotify.png" },
+        ],
     }
 ];
 
