@@ -2,7 +2,7 @@
 
 A personal developer portfolio built with Next.js and Three.js to showcase my projects and skills in an interactive 3D environment.
 
-![img_1.png](img_1.png)
+![img_1.png](img.png)
 
 
 **Live Demo:** [https://buildwithsagar.vercel.app/](https://buildwithsagar.vercel.app/) ✨
@@ -39,12 +39,12 @@ Make sure you have Node.js (version 18.x or higher) and npm installed on your ma
 
 1.  Clone the repository to your local machine:
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    git clone [https://github.com/sagargse/threejs_portfolio.git](https://github.com/sagargse/threejs_portfolio.git)
     ```
 
 2.  Navigate into the project directory:
     ```bash
-    cd your-repo-name
+    cd threejs_portfolio
     ```
 
 3.  Install the necessary dependencies:
